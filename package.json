@@ -1,0 +1,15 @@
+{
+  "name": "scroll-phat-node",
+  "version": "1.0.0",
+  "description": "for Pimorani's scollPhat",
+  "main": "app.js",
+  "dependencies": {
+    "i2c-bus": "^1.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alex Ellis",
+  "license": "GPL"
+}
