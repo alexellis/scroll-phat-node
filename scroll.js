@@ -22,8 +22,9 @@ function scroll() {
 scroll.prototype.initialize = function(done) {
 	var that = this;
 	that.wire = i2c.open(1, function(err) {
-
-		done();
+		that.wire.writeByte(i2c_address, cmd_set_mode, parseInt(mode_5x11, 2), function(){
+			done(err);
+		});
 	});
 };
 
@@ -35,21 +36,38 @@ scroll.prototype.setBrightness=function(val, done) {
 	});
 };
 
-scroll.prototype.writeNumber = function(val, done) {
+scroll.prototype.refresh = function(done) {
 	var that = this;
 
 	var buffer = that.buffer;
 	console.log(buffer)
-	that.wire.writeI2cBlock(i2c_address, cmd_set_pixels, buffer.length, buffer, done);
+	var callback = done ? done : that.refreshDone;
+
+	that.wire.writeI2cBlock(i2c_address, cmd_set_pixels, buffer.length, buffer, callback);
 };
 
-scroll.prototype.setPixel=function(x, y) {
-	var that = this;
+scroll.prototype.refreshDone = function() {
 
-    that.buffer[x] |= (1 << y)
-
-//	that.buffer[x] =y;
 }
+scroll.prototype.clearPixels = function() {
+	var that = this;
+	for (var i = 0; i < this.buffer.length; i++) {
+		this.buffer[i] = 0;
+	};
+};
 
+scroll.prototype.setPixel = function(x, y, value) {
+	var that = this;
+	if(value) {
+ 	   that.buffer[x] |= (1 << y)
+	} else {
+ 	   that.buffer[x] &= ~(1 << y)
+	}
+};
+
+scroll.prototype.close = function() {
+	var that = this;
+	that.wire.closeSync();
+};
 
 module.exports = scroll;

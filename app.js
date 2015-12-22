@@ -51,6 +51,7 @@ var printValuesTo = function(maxValue, delayMs, doneCallback) {
 var wire = init(brightness);
 
 printValuesTo(31, 200, function () {
+
 	write(wire, 0);
 	wire.closeSync();
 });
