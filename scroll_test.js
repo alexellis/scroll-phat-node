@@ -10,6 +10,7 @@ scroller.initialize(function(openErr) {
 		var x = 0;
 		var interval = setInterval(function() {
 			console.log("Row: " +x);
+			
 			for(var i = 0; i < 11; i++) {
 				scroller.setPixel(i, x, true);
 			}
@@ -18,7 +19,7 @@ scroller.initialize(function(openErr) {
 			});
 
 			x++;
-			if(x >5) {
+			if(x >= 5) {
 				scroller.clearPixels();
 				scroller.refresh(function () {
 					scroller.close();

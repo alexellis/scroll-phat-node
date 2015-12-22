@@ -1,5 +1,16 @@
 # scroll-phat-node
-Work-in-progress node.js library for Pimorani's scrollPhat
+Work-in-progress node.js library for Pimorani's scrollPhat. Partial re-write in Node with some re-use of Python library.
+
+Todo:
+
+```
+[x] Set brightness
+[x] Set mode 5x11
+[x] Set pixels on/off
+[ ] Load font into bitmaps
+[ ] Paint text onto screen
+[ ] Scroll text across screen
+```
 
 ### Requires:
 
