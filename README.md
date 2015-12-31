@@ -20,6 +20,8 @@ Todo:
 
 ### Usage:
 
+Install node.js via [binary distribution](https://nodejs.org/en/download/), apt-get/pacman or nvm etc. This has been developed/tested on Arch Linux.
+
 * npm install
 * node app.js
 
