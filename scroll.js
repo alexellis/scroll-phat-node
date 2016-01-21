@@ -1,3 +1,5 @@
+var fs = require('fs');
+
 var i2c = require('i2c-bus');
 
 var i2c_address = 0x60;
@@ -17,13 +19,22 @@ function scroll() {
 		this.buffer[n] = 0;
 	}
 	this.buffer[this.buffer.length] = end_marker;
+	this.font = {};
 }
 
 scroll.prototype.initialize = function(done) {
 	var that = this;
-	that.wire = i2c.open(1, function(err) {
-		that.wire.writeByte(i2c_address, cmd_set_mode, parseInt(mode_5x11, 2), function(){
-			done(err);
+	fs.readFile('./font.json', 'utf8', function(err, text) {
+		if(err) { 
+			return done(err);
+		}
+
+		that.font = JSON.parse(text);
+
+		that.wire = i2c.open(1, function(err) {
+			that.wire.writeByte(i2c_address, cmd_set_mode, parseInt(mode_5x11, 2), function(){
+				done(err);
+			});
 		});
 	});
 };
@@ -62,11 +73,42 @@ var toAsciiCode = function(character) {
 
 
 scroll.prototype.setText = function(text) {
+    var that = this;
+
     for(var i =0; i < text.length; i++) {
-       var ascii = text.toCharCode(i);
+       var ascii = text.charCodeAt(i);
        console.log("Printing " + ascii);
+       console.log(that.font[ascii]);
+       var ch = that.font[ascii];
+       for(var j=0;j<ch.length;j++) {
+            this.setPixels(j, ch[j], true);
+       }
     }
 }; 
+
+scroll.prototype.setPixels = function(x, total, value) {
+	var that = this;
+	if(total % 16 >= 1) {
+	    that.setPixel(5,x, value);
+	    total -= 16;
+        }
+	if(total % 8 >= 1) {
+	    that.setPixel(4,x, value);
+            total -= 8;
+        }
+	if(total % 4 >= 1) {
+	    that.setPixel(3,x, value);
+            total -= 4;
+        }
+	if(total % 2 >= 1) {
+	    that.setPixel(2,x, value);
+            total -= 2;
+	}
+	if(total % 1 >= 1) {
+	    that.setPixel(1,x, value);
+            total -= 1;
+        }
+};
 
 scroll.prototype.setPixel = function(x, y, value) {
 	var that = this;
@@ -76,6 +118,7 @@ scroll.prototype.setPixel = function(x, y, value) {
  	   that.buffer[x] &= ~(1 << y)
 	}
 };
+
 
 scroll.prototype.close = function() {
 	var that = this;
