@@ -56,6 +56,18 @@ scroll.prototype.clearPixels = function() {
 	};
 };
 
+var toAsciiCode = function(character) {
+   return character.toCharCode(0);
+}
+
+
+scroll.prototype.setText = function(text) {
+    for(var i =0; i < text.length; i++) {
+       var ascii = text.toCharCode(i);
+       console.log("Printing " + ascii);
+    }
+}; 
+
 scroll.prototype.setPixel = function(x, y, value) {
 	var that = this;
 	if(value) {
