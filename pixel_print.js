@@ -8,8 +8,7 @@ scroller.initialize(function(openErr) {
 
 	scroller.setBrightness(3, function () {
 		scroller.clearPixels();
-		scroller.refresh();
-		scroller.setText("A");
+		scroller.setPixel(1,2,true);
 		scroller.refresh();
 	});
 });

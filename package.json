@@ -4,6 +4,7 @@
   "description": "drive the scoll-phat by pimoroni",
   "main": "app.js",
   "dependencies": {
+    "async": "^1.5.2",
     "i2c-bus": "^1.0.1"
   },
   "devDependencies": {},

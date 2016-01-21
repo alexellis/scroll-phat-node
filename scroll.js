@@ -88,26 +88,27 @@ scroll.prototype.setText = function(text) {
 
 scroll.prototype.setPixels = function(x, total, value) {
 	var that = this;
-	if(total % 16 >= 1) {
-	    that.setPixel(5,x, value);
+/*	if(total % 16 >= 1) {
+	    that.setColumn(x,0, value);
 	    total -= 16;
         }
 	if(total % 8 >= 1) {
-	    that.setPixel(4,x, value);
+	    that.setColumn(x,1, value);
             total -= 8;
         }
 	if(total % 4 >= 1) {
-	    that.setPixel(3,x, value);
+	    that.setColumn(x,2, value);
             total -= 4;
         }
 	if(total % 2 >= 1) {
-	    that.setPixel(2,x, value);
+	    that.setColumn(x,3, value);
             total -= 2;
 	}
 	if(total % 1 >= 1) {
-	    that.setPixel(1,x, value);
+	    that.setColumn(x,4, value);
             total -= 1;
-        }
+        }*/
+	that.setColumn(x, total, value);
 };
 
 scroll.prototype.setPixel = function(x, y, value) {
@@ -119,6 +120,10 @@ scroll.prototype.setPixel = function(x, y, value) {
 	}
 };
 
+scroll.prototype.setColumn = function(x, y, value) {
+	var that = this;
+	that.buffer[x] =y
+};
 
 scroll.prototype.close = function() {
 	var that = this;
