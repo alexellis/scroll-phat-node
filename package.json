@@ -2,7 +2,7 @@
   "name": "scroll-phat-node",
   "version": "1.0.0",
   "description": "drive the scoll-phat by pimoroni",
-  "main": "app.js",
+  "main": "scroll.js",
   "dependencies": {
     "i2c-bus": "^1.0.1"
   },

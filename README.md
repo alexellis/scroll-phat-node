@@ -7,25 +7,67 @@ Todo:
 [x] Set brightness
 [x] Set mode 5x11
 [x] Set pixels on/off
-[ ] Load font into bitmaps
-[ ] Paint text onto screen
+[x] Load font into bitmaps
+[x] Print single character onto screen
+[ ] Print multiple characters onto screen
 [ ] Scroll text across screen
+[ ] Flip output of screen i.e. upside down.
 ```
 
-### Requires:
+### Installation:
 
+#### Required:
 * Node.js v4.2.3
 * Raspberry PI or device with I2c support
 * I2c correctly set up and functioning
 
-### Usage:
+Install node.js via [binary distribution](https://nodejs.org/en/download/), apt-get/pacman or nvm etc. This has been developed/tested on Arch Linux but will also work on other distributions.
+The i2c-bus library will also require a full make/gcc tool-chain to be installed.
 
-Install node.js via [binary distribution](https://nodejs.org/en/download/), apt-get/pacman or nvm etc. This has been developed/tested on Arch Linux.
+Use Node's `npm` package manager to install dependencies:
 
-* npm install
+```
+npm install
+```
+
+#### Demos
+
+* node scroll_test.js
 * node app.js
 
-The i2c-bus library will also require a full make/gcc tool-chain to be installed.
+#### Use in your code
+
+The library aims to be largely compatible with the original Python version, but Node.js is an asynchronous environment, meaning you can quickly get into a deep callback chain. I would suggest looking into the `async` library control-flow or a *Promise* library. 
+
+```
+var scrollPhat = require('scroll-phat-node');
+
+var scroller = new scroll();
+scroller.initialize(function(openErr) {
+	if(openErr) {
+		return console.error("Can't open i2c.");
+	}
+
+	var brightness = 3;
+	scroller.setBrightness(brightness, function () {
+		scroller.clearPixels();
+		scroller.setPixel(1, 1, true);
+		scroller.setPixel(1, 2, true);
+		scroller.setPixel(1, 3, true);
+		scroller.setPixel(1, 4, true);
+		scroller.setPixel(1, 5, true);
+
+		scroller.refresh(function () {
+			setTimeout(function() {
+				scroller.clearPixels();
+				scroller.refresh(function () {
+					scroller.close();
+				});
+			}, 1000);
+		});
+	});
+});
+```
 
 ### Details
 
