@@ -51,7 +51,7 @@ scroll.prototype.refresh = function(done) {
 	var that = this;
 
 	var buffer = that.buffer;
-	console.log(buffer)
+//	console.log(buffer)
 	var callback = done ? done : that.refreshDone;
 
 	that.wire.writeI2cBlock(i2c_address, cmd_set_pixels, buffer.length, buffer, callback);
@@ -60,6 +60,7 @@ scroll.prototype.refresh = function(done) {
 scroll.prototype.refreshDone = function() {
 
 }
+
 scroll.prototype.clearPixels = function() {
 	var that = this;
 	for (var i = 0; i < this.buffer.length; i++) {
@@ -75,39 +76,24 @@ var toAsciiCode = function(character) {
 scroll.prototype.setText = function(text) {
     var that = this;
 
-    for(var i =0; i < text.length; i++) {
+	var columnOffset=0;
+
+    for(var i = 0; i < text.length; i++) {
        var ascii = text.charCodeAt(i);
        console.log("Printing " + ascii);
-       console.log(that.font[ascii]);
+
        var ch = that.font[ascii];
        for(var j=0;j<ch.length;j++) {
-            this.setPixels(j, ch[j], true);
+//	       	console.log((columnOffset+j)+ "x"+ch[j] +" on");
+	        this.setPixels(columnOffset, ch[j], true);
+	        columnOffset++;
        }
+       columnOffset++;
     }
 }; 
 
 scroll.prototype.setPixels = function(x, total, value) {
 	var that = this;
-/*	if(total % 16 >= 1) {
-	    that.setColumn(x,0, value);
-	    total -= 16;
-        }
-	if(total % 8 >= 1) {
-	    that.setColumn(x,1, value);
-            total -= 8;
-        }
-	if(total % 4 >= 1) {
-	    that.setColumn(x,2, value);
-            total -= 4;
-        }
-	if(total % 2 >= 1) {
-	    that.setColumn(x,3, value);
-            total -= 2;
-	}
-	if(total % 1 >= 1) {
-	    that.setColumn(x,4, value);
-            total -= 1;
-        }*/
 	that.setColumn(x, total, value);
 };
 
