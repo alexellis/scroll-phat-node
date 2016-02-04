@@ -9,7 +9,7 @@ Todo:
 [x] Set pixels on/off
 [x] Load font into bitmaps
 [x] Print single character onto screen
-[ ] Print multiple characters onto screen
+[x] Print multiple characters onto screen
 [ ] Scroll text across screen
 [ ] Flip output of screen i.e. upside down.
 ```
