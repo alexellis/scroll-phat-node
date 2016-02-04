@@ -7,26 +7,18 @@ scroller.initialize(function(openErr) {
 		return console.error("Can't open i2c.");
 	}
 
+	var letterBuffer = ["S", "C", "R", "O", "L", "L", "."];
 	scroller.setBrightness(3, function () {
-		async.series([
-		 function(cb) {
-		   setTimeout(function() {
-		      scroller.clearPixels();
-		      scroller.refresh();
-		      scroller.setText("O");
-                      scroller.refresh();
-		      cb();
-		   }, 500);
-		 },
-		 function(cb) {
-		   setTimeout(function() {
-		      scroller.clearPixels();
-		      scroller.refresh();
-		      scroller.setText("M");
-                      scroller.refresh();
-		      cb();
-		   }, 500);
-		 }
-		]);
+		var interval = setInterval(function() {
+			if(!letterBuffer.length) {
+				return clearInterval(interval);
+			}
+			scroller.clearPixels();
+			scroller.refresh();
+			scroller.setText(letterBuffer[0]);
+			scroller.refresh();
+			letterBuffer=letterBuffer.slice(1);
+		}, 500);
+
 	});
 });
