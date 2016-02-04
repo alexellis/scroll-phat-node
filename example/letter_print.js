@@ -1,6 +1,6 @@
 var async = require('async');
 
-var scroll = require('./scroll');
+var scroll = require('../src/scroll');
 var scroller = new scroll();
 scroller.initialize(function(openErr) {
 	if(openErr) {

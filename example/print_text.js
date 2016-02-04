@@ -1,9 +1,9 @@
-var scroll = require('./scroll');
+var scroll = require('../src/scroll');
 
 var scroller = new scroll();
 scroller.initialize(function(openErr) {
 	if(openErr) {
-		return console.error("Can't open i2c.");
+		return console.error("Can't open i2c.", openErr);
 	}
 
 	scroller.setBrightness(3, function () {

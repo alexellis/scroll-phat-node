@@ -1,6 +1,6 @@
-var fs = require('fs');
-
 var i2c = require('i2c-bus');
+var fs = require('fs');
+var path = require('path');
 
 var i2c_address = 0x60;
 var cmd_set_mode = 0x00;
@@ -24,7 +24,7 @@ function scroll() {
 
 scroll.prototype.initialize = function(done) {
 	var that = this;
-	fs.readFile('./font.json', 'utf8', function(err, text) {
+	fs.readFile(path.join(__dirname, './font.json'), 'utf8', function(err, text) {
 		if(err) { 
 			return done(err);
 		}

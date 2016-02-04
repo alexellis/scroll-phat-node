@@ -1,4 +1,4 @@
-var scroll = require('./scroll');
+var scroll = require('../src/scroll');
 
 var text = "OMG";
 if(process.argv.length > 2) {
