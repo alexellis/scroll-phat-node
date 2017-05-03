@@ -1,7 +1,7 @@
 # scroll-phat-node
 Work-in-progress node.js library for Pimorani's scrollPhat. Partial re-write in Node with some re-use of Python library.
 
-Todo:
+Features:
 
 ```
 [x] Set brightness
@@ -10,8 +10,16 @@ Todo:
 [x] Load font into bitmaps
 [x] Print single character onto screen
 [x] Print multiple characters onto screen
+```
+
+Todo:
+
+> These remaining items will probably not be finished since animations and timing in asynchronous JavaScript are necessarily hard and complex. 
+
+```
 [ ] Scroll text across screen
 [ ] Flip output of screen i.e. upside down.
+[ ] Scroll-phat HD support
 ```
 
 ### Installation:
